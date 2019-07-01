@@ -2,17 +2,26 @@ package com.example.demow;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class DemowApplicationTests {
 
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
     @Test
     public void contextLoads() throws Exception {
-        Integer test = test();
-        System.out.println(test);
+        threadPoolTaskExecutor.submit(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("asd");
+            }
+        });
     }
 
     private Integer test() throws Exception {
